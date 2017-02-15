@@ -1,3 +1,19 @@
+function getCO(phoneNum) {
+    var controlOffice;
+    try {
+        controlOffice = between(phoneNum, " ", "-");
+        controlOffice = controlOffice.trim();
+        if (controlOffice.length == 3 && Number(controlOffice)) {
+            return controlOffice;
+        }
+        else {
+            throw new Error("Invalid CO code: " + controlOffice);
+        }
+    }
+    catch (error) {
+        throw new Error("Invalid phone number: " + error.message);
+    }
+}
 /**
  * Returns an area code from a phone number: (###) ###-####
  * @param   {string} phoneNum The phone number
@@ -51,6 +67,21 @@ function displayAreaCode(inputId, outputId) {
     try {
         var areaCode = getAreaCode(phoneNum);
         outputText = "Your area code is " + areaCode;
+    }
+    catch (error) {
+        console.log(error.message);
+        outputText = error.message;
+    }
+    document.getElementById(outputId).innerHTML = outputText;
+}
+
+function displayCO(inputId, outputId) {
+    var outputText = "";
+    var phoneNum = document.getElementById(inputId).value;
+    // Now try to get the code
+    try {
+        var controlOffice = getCO(phoneNum);
+        outputText = "Your area code is " + controlOffice;
     }
     catch (error) {
         console.log(error.message);
