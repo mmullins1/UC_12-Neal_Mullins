@@ -1,3 +1,12 @@
+function checkValid(phoneNum) {
+    if (phoneNum.charAt(0) == "(") {
+        return phoneNum;
+    }
+    else {
+        throw new Error("Invalid phone number: " + phoneNum)
+    }
+}
+
 function getCO(phoneNum) {
     var controlOffice;
     try {
@@ -142,6 +151,7 @@ function displayValidation(inputId, outputId) {
         var areaCode = getAreaCode(phoneNum);
         var lineCode = getLineCode(phoneNum);
         var controlOffice = getCO(phoneNum);
+        var number = checkValid(phoneNum);
         outputText = "Valid phone number: " + phoneNum;
     }
     catch (error) {
