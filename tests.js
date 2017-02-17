@@ -37,7 +37,7 @@ QUnit.test("Errors thrown for getLineCode", function (assert) {
         getLineCode("(415 444-5e55");
     }, "Incorrect input. An error should have been thrown.");
 });
-QUnit.test("Errors thrown for gcheckValidation", function (assert) {
+QUnit.test("Errors thrown for checkValidation", function (assert) {
     assert.throws(function () {
         checkValid("4(415)444-5555");
     }, "Extra digit. An error should have been thrown.");
