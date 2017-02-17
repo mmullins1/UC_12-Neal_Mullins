@@ -1,3 +1,19 @@
+function getCO(phoneNum) {
+    var controlOffice;
+    try {
+        controlOffice = between(phoneNum, ")", "-");
+        controlOffice = controlOffice.trim();
+        if (controlOffice.length == 3 && Number(controlOffice) && controlOffice.charAt(1) != "e") {
+            return controlOffice;
+        }
+        else {
+            throw new Error("Invalid CO code: " + controlOffice);
+        }
+    }
+    catch (error) {
+        throw new Error("Invalid phone number: " + error.message);
+    }
+}
 /**
  * Removes part of string between two sub strings
  * @param {string} text The original string
@@ -43,7 +59,7 @@ function getAreaCode(phoneNum) {
     try {
         areaCode = between(phoneNum, "(", ")");
         areaCode = areaCode.trim();
-        if (areaCode.length == 3 && Number(areaCode)) {
+        if (areaCode.length == 3 && Number(areaCode) && areaCode.charAt(1) != "e") {
             return areaCode;
         }
         else {
@@ -65,7 +81,7 @@ function getLineCode(phoneNum) {
     try {
         lineCode = after(phoneNum, "-");
         areaCode = lineCode.trim();
-        if (lineCode.length == 4 && Number(lineCode)) {
+        if (lineCode.length == 4 && Number(lineCode) && lineCode.charAt(1) != "e" && lineCode.charAt(2) != "e") {
             return lineCode;
         }
         else {
@@ -125,7 +141,23 @@ function displayValidation(inputId, outputId) {
     try {
         var areaCode = getAreaCode(phoneNum);
         var lineCode = getLineCode(phoneNum);
+        var controlOffice = getCO(phoneNum);
         outputText = "Valid phone number: " + phoneNum;
+    }
+    catch (error) {
+        console.log(error.message);
+        outputText = error.message;
+    }
+    document.getElementById(outputId).innerHTML = outputText;
+}
+
+function displayCO(inputId, outputId) {
+    var outputText = "";
+    var phoneNum = document.getElementById(inputId).value;
+    // Now try to get the code
+    try {
+        var controlOffice = getCO(phoneNum);
+        outputText = "Your CO code is " + controlOffice;
     }
     catch (error) {
         console.log(error.message);
