@@ -81,7 +81,7 @@ function displayCO(inputId, outputId) {
     // Now try to get the code
     try {
         var controlOffice = getCO(phoneNum);
-        outputText = "Your area code is " + controlOffice;
+        outputText = "Your CO code is " + controlOffice;
     }
     catch (error) {
         console.log(error.message);
